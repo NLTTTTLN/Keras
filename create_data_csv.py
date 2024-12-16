@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Đặt số lượng mẫu
-num_samples = 500
+num_samples = 50000
 
 # Tạo dữ liệu ngẫu nhiên cho nhịp tim, nồng độ oxy, nhiệt độ cơ thể và trạng thái di chuyển
 np.random.seed(0)  # Để có kết quả lặp lại
@@ -24,17 +24,17 @@ activity_states = np.random.choice(['Nghỉ ngơi', 'Đi bộ', 'Hoạt động'
 
 # Xác định tình trạng sức khỏe dựa trên nhịp tim, nồng độ oxy, nhiệt độ cơ thể và trạng thái di chuyển
 def determine_health_status(oxy, heart_rate, temp, activity):
-    if heart_rate > 120:  # Nhịp tim vượt quá 120 bpm
+    if heart_rate >= 120:  # Nhịp tim vượt quá 120 bpm
         return 'Nguy kịch'
-    elif heart_rate > 100:  # Nhịp tim vượt quá 100 bpm
+    elif heart_rate >= 100:  # Nhịp tim vượt quá 100 bpm
         return 'Cảnh báo'
-    elif oxy < 90 and activity == 'Hoạt động':  # Mức SpO2 dưới 90% khi đang hoạt động
+    elif oxy <= 90 and activity == 'Hoạt động':  # Mức SpO2 dưới 90% khi đang hoạt động
         return 'Cảnh báo'
-    elif oxy < 85:  # Mức SpO2 dưới 85%
+    elif oxy <= 85:  # Mức SpO2 dưới 85%
         return 'Nguy kịch'
-    elif temp > 38.5:  # Nhiệt độ cơ thể trên 38.5°C (sốt cao)
+    elif temp >= 37.5:  # Nhiệt độ cơ thể trên 38.5°C (sốt cao)
         return 'Cảnh báo'
-    elif temp > 39.0:  # Nhiệt độ cơ thể trên 39°C (sốt nguy hiểm)
+    elif temp >= 39.0:  # Nhiệt độ cơ thể trên 39°C (sốt nguy hiểm)
         return 'Nguy kịch'
     else:
         return 'Bình thường'
